@@ -1,7 +1,6 @@
 package trading_service
 
 import (
-	"log"
 	"math/big"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -15,7 +14,7 @@ func GetQuote(inputToken common.Address, amount *big.Int, side uniswap.Side, cli
 	quoter, err := uniswap.NewQuoter(client)
 
 	if err != nil {
-		log.Fatal("Failed to create quoter:", err)
+		return nil, err
 	}
 
 	var result *uniswap.QuoteResult

@@ -615,7 +615,7 @@ Trading applications prioritize **latency over memory** because:
 
 1. **Network Assumptions**:
    - Ethereum Sepolia testnet (can work on mainnet with config change)
-   - Reliable RPC provider (Alchemy recommended)
+   - Reliable RPC provider 
    - User has testnet ETH for gas
 
 2. **Token Assumptions**:
