@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ykel/quote_engine/core/config"
 )
 
 func ToBaseUnits(amount float64, decimals uint8) *big.Int {
@@ -36,15 +37,26 @@ func ReadFloat(prompt string) (float64, error) {
 
 func ReadAddress(prompt string) (common.Address, error) {
 	fmt.Println(prompt)
+	fmt.Printf("USDC: %s\n", config.App.USDCAddress)
+	fmt.Printf("USDT: %s\n", config.App.USDTAddress)
+
 	var input string
 	fmt.Scanln(&input)
 	input = strings.TrimSpace(input)
 
-	if !common.IsHexAddress(input) {
+	if strings.ToUpper(input) != "USDC" && strings.ToUpper(input) != "USDT" && !common.IsHexAddress(input) {
 		return common.Address{}, fmt.Errorf("invalid address format")
 	}
 
-	return common.HexToAddress(input), nil
+	switch strings.ToUpper(input) {
+	case "USDC":
+		return config.App.USDCAddress, nil
+	case "USDT":
+		return config.App.USDTAddress, nil
+	default:
+		return common.HexToAddress(input), nil
+	}
+
 }
 
 func CalculateMinimumAmountInt(amount *big.Int, slippagePercent float64) *big.Int {

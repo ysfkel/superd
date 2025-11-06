@@ -26,7 +26,7 @@ func RunCli() {
 	}
 
 	baseAmount := util.ToBaseUnits(amount, decimals)
-
+	fmt.Println("Finding quote, pleae wait..")
 	result, err := trading_service.GetQuote(tokenAddress, baseAmount, side, client)
 
 	if err != nil {
@@ -53,12 +53,12 @@ func RunCli() {
 		log.Fatalln(err)
 	}
 
-	fmt.Println("Balance: ", balance)
+	fmt.Println("Your Balance: ", util.FormatTokenAmount(balance, 6))
 
 }
 
 func readSwapInputs(amount *big.Int, side uniswap.Side) (slippageAmount *big.Int) {
-	accept := util.ReadString(fmt.Sprintf("Do you accept quote (y / n): %s", util.FormatTokenAmount(amount, 18)))
+	accept := util.ReadString(fmt.Sprintf("Quote: %s Accept? (y/n)", util.FormatTokenAmount(amount, 18)))
 
 	if strings.ToLower(accept) != "yes" && strings.ToLower(accept) != "y" {
 		return nil
@@ -99,7 +99,7 @@ func readSwapInputs(amount *big.Int, side uniswap.Side) (slippageAmount *big.Int
 
 func readQuoteInputs() (amount float64, tokenInput common.Address, side uniswap.Side) {
 
-	tokenInput, err := util.ReadAddress("Enter token symbol (e.g. USDC):")
+	tokenInput, err := util.ReadAddress("Enter token symbol (e.g. USDC) or Provide valid token address:")
 
 	if err != nil {
 		log.Fatal("Invalid Ethereum address format")
