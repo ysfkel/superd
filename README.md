@@ -1,7 +1,7 @@
 
 
 
-### Table of Contents
+## Table of Contents
 
 1. [Problem 1: String Number Padding](#problem-1-string-number-padding)
 2. [Problem 2 & 3: DeFi Trading Engine](#problem-2--3-defi-trading-engine)
